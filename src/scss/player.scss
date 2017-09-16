@@ -1,0 +1,16 @@
+
+
+.player-window {
+  display: flex;
+
+  .video-player {
+    background: #000;
+    width: 75%;
+  }
+
+  .playlist-container {
+    background: #eee;
+    width: 25%;
+    padding: 10px;
+  }
+}
