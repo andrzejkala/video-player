@@ -2,10 +2,20 @@
 
 .player-window {
   display: flex;
+  padding: 20px;
 
   .video-player {
-    background: #000;
     width: 75%;
+
+    video {
+      display: block;
+      margin: 10px auto;
+      border: 3px solid #000;
+    }
+  }
+
+  .player-toolbar {
+    text-align: center;
   }
 
   .playlist-container {

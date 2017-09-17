@@ -3,25 +3,25 @@
 const playlist = [
   {
     title:    "Reklama Play",
-    url:      "/vids/play.mp4",
+    url:      "/vids/sample_video.mp4",
     duration: "...",
     type:     "video/mp4"
   },
   {
     title:    "Reklama Hellena",
-    url:      "/vids/hellena.mp4",
+    url:      "/vids/sample_video.mp4",
     duration: "...",
     type:     "video/mp4"
   },
   {
     title:    "Zozole - kawał",
-    url:      "/vids/zozole_kawal.mp4",
+    url:      "/vids/sample_video.mp4",
     duration: "...",
     type:     "video/mp4"
   },
   {
     title:    "Happy Socks - otwarcie",
-    url:      "/vids/happy_socks_opening.mp4",
+    url:      "/vids/sample_video.mp4",
     duration: "...",
     type:     "video/mp4"
   }
