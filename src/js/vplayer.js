@@ -112,6 +112,24 @@ export default class videoPlayer {
 
         toolbar.appendChild(stopButton);
 
+    // Create the volume control
+    var volumeControl = document.createElement("input");
+        volumeControl.type  = "range";
+        volumeControl.min   = 0;
+        volumeControl.max   = 100;
+        volumeControl.step  = 1;
+        volumeControl.value = this.player.volume * 100;
+
+        volumeControl.addEventListener("input", (e) => {
+          this.player.volume = e.target.value / 100;
+        });
+
+        volumeControl.addEventListener("change", (e) => {
+          this.player.volume = e.target.value / 100;
+        });
+
+        toolbar.appendChild(volumeControl);
+
     // Add to #vplayer
     this.container.appendChild(toolbar);
 
