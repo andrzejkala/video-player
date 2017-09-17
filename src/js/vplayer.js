@@ -130,6 +130,38 @@ export default class videoPlayer {
 
         toolbar.appendChild(volumeControl);
 
+    // Create the fullscreen control
+    var fullscreenControl = document.createElement("button");
+        fullscreenControl.id = "fullscreen-button";
+        fullscreenControl.innerHTML = "Fullscreen";
+
+        fullscreenControl.addEventListener("click", (e) => {
+          if (!document.fullscreenElement) {
+            // Standards version
+            if (this.player.requestFullscreen) {
+              this.player.requestFullscreen();
+            }
+
+            // Chrome / Opera
+            if (this.player.webkitRequestFullscreen) {
+              this.player.webkitRequestFullscreen();
+            }
+
+            // Firefox
+            if (this.player.mozRequestFullScreen) {
+              this.player.mozRequestFullScreen();
+            }
+
+            // Internet Explorer 11
+            if (this.player.msRequestFullscreen) {
+              this.player.msRequestFullscreen();
+            }
+
+          }
+        });
+
+        toolbar.appendChild(fullscreenControl);
+
     // Add to #vplayer
     this.container.appendChild(toolbar);
 
