@@ -1,4 +1,8 @@
-
+body {
+  background: #fff;
+  font: 300 16px/20px Helvetica, Arial, sans-serif;
+  color: #333;
+}
 
 .player-window {
   display: flex;
@@ -22,5 +26,46 @@
     background: #eee;
     width: 25%;
     padding: 10px;
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      display: flex;
+      padding: 5px;
+      cursor: pointer;
+      justify-content: space-between;
+      text-decoration: none;
+
+      transition: all .2s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .current a {
+      color: orangered;
+    }
+
+    button {
+      border: none;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin: 20px 5px;
+      cursor: pointer;
+
+      &.active {
+        color: #fff;
+        background: orangered;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 }

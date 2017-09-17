@@ -1,7 +1,14 @@
 export default class videoPlayer {
   constructor (container, playlist) {
     if (playlist) {
-      this.playlist   = playlist
+      this.playlist = playlist;
+
+      // Basic playlist params
+      this.repeatPlaylist   = false;
+      this.shufflePlaylist  = false;
+
+      // Create the playlist information panel
+      this.createPlaylistPanel();
     }
 
     this.container  = document.getElementById(container);
@@ -28,7 +35,7 @@ export default class videoPlayer {
 
     // When playback has started
     this.player.addEventListener("playing", () => {
-      console.log("Video playing");
+      this.highlightPlaylistItem(this.currentVideo);
     });
 
     // When playback is paused
@@ -39,14 +46,30 @@ export default class videoPlayer {
     // When playback is complete
     this.player.addEventListener("ended", () => {
       // Play the whole playlist
-      if (this.currentVideo < this.playlist.length - 1) {
-        this.currentVideo++;
-        this.loadVideo(this.currentVideo, true);
-      } else {
-        this.currentVideo = 0;
-        this.loadVideo(this.currentVideo, false);
+      if (!this.loadedFromPlaylist) {
+        if (this.shufflePlaylist) {
+          this.currentVideo = this.chooseRandomVideo();
+          this.loadVideo(this.currentVideo, true);
+        } else {
+          if (this.currentVideo < this.playlist.length - 1) {
+            this.currentVideo++;
+            this.loadVideo(this.currentVideo, true);
+          } else {
+            this.currentVideo = 0;
+            this.loadVideo(this.currentVideo, this.repeatPlaylist);
+          }
+        }
+
+
       }
     });
+  }
+
+  // Random video func. for shuffle functionality
+  chooseRandomVideo() {
+    var min = 0;
+    var max = this.playlist.length - 1;
+    return Math.floor( Math.random() * ( max - min + 1 ) + min);
   }
 
   // Play, Stop, Pause
@@ -94,6 +117,86 @@ export default class videoPlayer {
 
   }
 
+  // Playlist panel
+  createPlaylistPanel() {
+    this.processedItems = document.createElement("ol");
+    this.processedItems.className = "playlist-view";
+
+    document.getElementById('playlist').appendChild(this.processedItems);
+
+    for (var [index, listItem] of this.playlist.entries()) {
+      var item = document.createElement("li");
+          item.dataset.video_index = index;
+
+      var link = document.createElement("a");
+          link.dataset.video_id = index;
+          link.href = "#";
+          link.innerHTML = `<span class="title">${listItem.title}</span><span class="duration">${listItem.duration}</span>`;
+
+          item.appendChild(link);
+
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            this.player.pause();
+            this.currentVideo = e.currentTarget.dataset.video_id;
+            this.loadedFromPlaylist = true;
+            this.highlightPlaylistItem(this.currentVideo);
+            this.loadVideo(this.currentVideo, true);
+
+          });
+
+      this.processedItems.appendChild(item);
+    }
+
+    this.createPlaylistToolbar();
+  }
+
+  // Playlist toolbar
+  createPlaylistToolbar() {
+    var playlistToolbar = document.createElement("div");
+        playlistToolbar.className = "playlist-toolbar";
+
+    // Repeat button
+    var repeatButton = document.createElement("button");
+        repeatButton.className = "repeat";
+        repeatButton.innerHTML = "Repeat";
+
+        repeatButton.addEventListener("click", (e) => {
+          this.repeatPlaylist = !this.repeatPlaylist;
+          $(e.currentTarget).toggleClass("active"); // jQuery to make things simpler
+        });
+
+        playlistToolbar.appendChild(repeatButton);
+
+    // Shuffle button
+    var shuffleButton = document.createElement("button");
+        shuffleButton.className = "shuffle";
+        shuffleButton.innerHTML = "Shuffle";
+
+        shuffleButton.addEventListener("click", (e) => {
+          this.shufflePlaylist = !this.shufflePlaylist;
+          $(e.currentTarget).toggleClass("active"); // jQuery to make things simpler
+        });
+
+        playlistToolbar.appendChild(shuffleButton);
+
+
+    document.getElementById('playlist').appendChild(playlistToolbar);
+  }
+
+  // Highlight playlist item
+  highlightPlaylistItem(index) {
+    if (index === false) {
+      $(this.processedItems).find('li').removeClass("current"); // jQuery to make things simpler
+    } else {
+      var currentElem = this.processedItems.querySelector(`li[data-video_index="${index}"]`);
+      $(this.processedItems).find('li').removeClass("current"); // jQuery to make things simpler
+      $(currentElem).addClass("current"); // jQuery to make things simpler
+    }
+
+  }
+
   // Load video
   loadVideo(index, play) {
     if (Array.isArray(this.playlist)) {
@@ -107,6 +210,11 @@ export default class videoPlayer {
         this.source.type = this.playlist[index].type;
 
         this.player.load();
+
+        if (this.processedItems) {
+          this.highlightPlaylistItem(index);
+        }
+
         if (play) {
           this.player.play();
         }
