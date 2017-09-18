@@ -8,18 +8,28 @@ var gulp        = require("gulp"),
     sass        = require("gulp-sass")
     minifyCSS   = require("gulp-minify-css")
     minifyJS    = require("gulp-uglify")
+    merge       = require("merge-stream")
     ;
 
-//Copy static html files
-gulp.task("copyStaticFiles", function(){
-  return gulp.src("./src/html/*.*")
-    .pipe(gulp.dest("./dist"))
-});
+// Static files handler
+gulp.task("staticFiles", function() {
+  // Videos
+  var videoFiles = gulp.src("./vids/*.*")
+      .pipe(gulp.dest("./dist/vids"));
 
-// Copy videos
-gulp.task("copyVideos", function(){
-  return gulp.src("./vids/*.*")
-    .pipe(gulp.dest("./dist/vids"))
+  // HTML Files
+  var htmlFiles = gulp.src("./src/html/*.*")
+      .pipe(gulp.dest("./dist"));
+
+  // CSS
+  var css = gulp.src("./src/scss/*.css")
+      .pipe(gulp.dest("./dist/css"));
+
+  // Fonts
+  var fonts = gulp.src("./src/scss/fonts/*.*")
+  .pipe(gulp.dest("./dist/css/fonts"));
+
+  return merge(videoFiles, htmlFiles, css, fonts);
 });
 
 //Convert ES6 in all js files in src/js folder and copy to
@@ -39,7 +49,7 @@ gulp.task("js", function(){
 });
 
 // Convert SCSS files to plain css
-gulp.task("css", function() {
+gulp.task("scss", function() {
   gulp.src("./src/scss/*.scss")
     .pipe(sass().on("error", sass.logError))
     .pipe(minifyCSS())
@@ -50,12 +60,12 @@ gulp.task("css", function() {
 //Default task
 gulp.task("default", function() {
   // We watch for changes in those files and rebundle them if needed
-  gulp.watch("./src/html/*.html", ["copyStaticFiles"]);
+  gulp.watch("./src/html/*.html", ["staticFiles"]);
   gulp.watch("./src/scss/*.scss",["css"]);
   gulp.watch("./src/js/*.js", ["js"]);
 
   // On init - we do everything
-  gulp.start(["js", "css", "copyStaticFiles", "copyVideos", "startServer"]);
+  gulp.start(["js", "scss", "staticFiles", "startServer"]);
 });
 
 
