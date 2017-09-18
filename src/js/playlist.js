@@ -33,45 +33,12 @@ export default class PlaylistPanel {
 
   }
 
-  // Getters / setters
-  getPlaylist() {
-    return this.playlist;
-  }
-
-  getShufflePlaylist() {
-    return this.shufflePlaylist;
-  }
-
-  getRepeatPlaylist() {
-    return this.repeatPlaylist;
-  }
-
-  getLoadedFromPlaylist() {
-    return this.loadedFromPlaylist;
-  }
-
-  getProcessedItems() {
-    return this.processedItems;
-  }
-
-  getLoadedFromPlaylist() {
-    return this.loadedFromPlaylist;
-  }
-
-  setLoadedFromPlaylist(loadedFromPlaylist) {
-    this.loadedFromPlaylist = loadedFromPlaylist;
-  }
-
-
-  // http://localhost:9001/json/playlist.json
   // To make things simple - $.ajax via jQuery
   loadPlaylistFromJSON(url) {
-    console.log("Loading playlist from JSON", url);
     $.ajax(url)
       .done( (response) => {
         this.playlist = response;
         this.createPlaylistPanel();
-        console.log("HERE WE GO!")
         this.player.loadVideo(this.player.currentVideo, false);
       });
   }

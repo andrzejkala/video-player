@@ -59,25 +59,25 @@ export default class videoPlayer {
     // When playback is complete
     this.player.addEventListener("ended", () => {
       // Play the whole playlist
-      if (!this.playlistPanel.getLoadedFromPlaylist()) {
-        if (this.playlistPanel.getShufflePlaylist()) {
+      if (!this.playlistPanel.loadedFromPlaylist) {
+        if (this.playlistPanel.shufflePlaylist) {
           this.currentVideo = this.playlistPanel.chooseRandomVideo();
           this.loadVideo(this.currentVideo, true);
         } else {
-          if (this.currentVideo < this.playlistPanel.getPlaylist().length - 1) {
+          if (this.currentVideo < this.playlistPanel.playlist.length - 1) {
             this.currentVideo++;
             this.loadVideo(this.currentVideo, true);
           } else {
             this.currentVideo = 0;
-            if (!this.playlistPanel.getRepeatPlaylist()) {
+            if (!this.playlistPanel.repeatPlaylist) {
               this.setPlayerState("Stopped");
             }
-            this.loadVideo(this.currentVideo, this.playlistPanel.getRepeatPlaylist());
+            this.loadVideo(this.currentVideo, this.playlistPanel.repeatPlaylist);
           }
         }
       } else {
         // Reset the "fromPlaylist" setting
-        this.playlistPanel.setLoadedFromPlaylist(false);
+        this.playlistPanel.loadedFromPlaylist = false;
       }
     });
   }
@@ -190,19 +190,19 @@ export default class videoPlayer {
 
   // Load video
   loadVideo(index, play) {
-    if (Array.isArray(this.playlistPanel.getPlaylist())) {
-      if (this.playlistPanel.getPlaylist()[index]) {
+    if (Array.isArray(this.playlistPanel.playlist)) {
+      if (this.playlistPanel.playlist[index]) {
         if (!this.source) {
           this.source    = document.createElement("source");
           this.player.appendChild(this.source);
         }
 
-        this.source.src  = this.playlistPanel.getPlaylist()[index].url;
-        this.source.type = this.playlistPanel.getPlaylist()[index].type;
+        this.source.src  = this.playlistPanel.playlist[index].url;
+        this.source.type = this.playlistPanel.playlist[index].type;
 
         this.player.load();
 
-        if (this.playlistPanel.getProcessedItems()) {
+        if (this.playlistPanel.processedItems) {
           this.playlistPanel.highlightPlaylistItem(index);
         }
 
