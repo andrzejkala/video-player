@@ -40,6 +40,14 @@ export default class PlaylistPanel {
     return this.processedItems;
   }
 
+  getLoadedFromPlaylist() {
+    return this.loadedFromPlaylist;
+  }
+
+  setLoadedFromPlaylist(loadedFromPlaylist) {
+    this.loadedFromPlaylist = loadedFromPlaylist;
+  }
+
   // Playlist panel
   createPlaylistPanel() {
     this.processedItems = document.createElement("ol");

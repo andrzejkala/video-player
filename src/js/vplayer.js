@@ -75,7 +75,9 @@ export default class videoPlayer {
             this.loadVideo(this.currentVideo, this.playlistPanel.getRepeatPlaylist());
           }
         }
-        // TODO: BUG!!! Set from playlist to false
+      } else {
+        // Reset the "fromPlaylist" setting
+        this.playlistPanel.setLoadedFromPlaylist(false);
       }
     });
   }
