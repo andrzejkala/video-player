@@ -61,7 +61,7 @@ gulp.task("scss", function() {
 gulp.task("default", function() {
   // We watch for changes in those files and rebundle them if needed
   gulp.watch("./src/html/*.html", ["staticFiles"]);
-  gulp.watch("./src/scss/*.scss",["css"]);
+  gulp.watch("./src/scss/*.scss",["scss"]);
   gulp.watch("./src/js/*.js", ["js"]);
 
   // On init - we do everything

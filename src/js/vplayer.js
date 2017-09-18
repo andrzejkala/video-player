@@ -69,32 +69,38 @@ export default class videoPlayer {
     var toolbar = document.createElement("div");
         toolbar.className = "player-toolbar";
 
+    var controlsLeft = document.createElement("div");
+        controlsLeft.className = "controls-left";
+
+    var controlsRight = document.createElement("div");
+        controlsRight.className = "controls-right";
+
     // Create the play button
     var playButton = document.createElement("button");
         playButton.id = "play-button";
-        playButton.innerHTML = "Play";
+        playButton.innerHTML = "<i class=\"fa fa-play\" aria-hidden=\"true\"></i>";
 
         playButton.addEventListener("click", () => {
           this.player.play();
         });
 
-        toolbar.appendChild(playButton);
+        controlsLeft.appendChild(playButton);
 
     // Create the pause button
     var pauseButton = document.createElement("button");
         pauseButton.id = "pause-button";
-        pauseButton.innerHTML = "Pause";
+        pauseButton.innerHTML = "<i class=\"fa fa-pause\" aria-hidden=\"true\"></i>";
 
         pauseButton.addEventListener("click", () => {
           this.player.pause();
         });
 
-        toolbar.appendChild(pauseButton);
+        controlsLeft.appendChild(pauseButton);
 
     // Create the stop button
     var stopButton = document.createElement("button");
         stopButton.id = "stop-button";
-        stopButton.innerHTML = "Stop";
+        stopButton.innerHTML = "<i class=\"fa fa-stop\" aria-hidden=\"true\"></i>";
 
         stopButton.addEventListener("click", () => {
           this.player.pause();
@@ -102,7 +108,9 @@ export default class videoPlayer {
           this.loadVideo(this.currentVideo, false);
         });
 
-        toolbar.appendChild(stopButton);
+        controlsLeft.appendChild(stopButton);
+
+        toolbar.appendChild(controlsLeft);
 
     // Create the volume control
     var volumeControl = document.createElement("input");
@@ -120,12 +128,12 @@ export default class videoPlayer {
           this.player.volume = e.target.value / 100;
         });
 
-        toolbar.appendChild(volumeControl);
+        controlsRight.appendChild(volumeControl);
 
     // Create the fullscreen control
     var fullscreenControl = document.createElement("button");
         fullscreenControl.id = "fullscreen-button";
-        fullscreenControl.innerHTML = "Fullscreen";
+        fullscreenControl.innerHTML = "<i class=\"fa fa-expand\" aria-hidden=\"true\"></i>";
 
         fullscreenControl.addEventListener("click", (e) => {
           if (!document.fullscreenElement) {
@@ -152,7 +160,9 @@ export default class videoPlayer {
           }
         });
 
-        toolbar.appendChild(fullscreenControl);
+        controlsRight.appendChild(fullscreenControl);
+
+        toolbar.appendChild(controlsRight);
 
     // Add to #vplayer
     this.container.appendChild(toolbar);

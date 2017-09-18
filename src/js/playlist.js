@@ -82,7 +82,7 @@ export default class PlaylistPanel {
     // Repeat button
     var repeatButton = document.createElement("button");
         repeatButton.className = "repeat";
-        repeatButton.innerHTML = "Repeat";
+        repeatButton.innerHTML = "<i class=\"fa fa-repeat\" aria-hidden=\"true\"></i>";
 
         repeatButton.addEventListener("click", (e) => {
           this.repeatPlaylist = !this.repeatPlaylist;
@@ -94,7 +94,7 @@ export default class PlaylistPanel {
     // Shuffle button
     var shuffleButton = document.createElement("button");
         shuffleButton.className = "shuffle";
-        shuffleButton.innerHTML = "Shuffle";
+        shuffleButton.innerHTML = "<i class=\"fa fa-random\" aria-hidden=\"true\"></i>";
 
         shuffleButton.addEventListener("click", (e) => {
           this.shufflePlaylist = !this.shufflePlaylist;

@@ -4,6 +4,16 @@ body {
   color: #333;
 }
 
+button {
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 25px;
+  padding: 3px 15px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .player-window {
   display: flex;
   padding: 20px;
@@ -19,13 +29,29 @@ body {
   }
 
   .player-toolbar {
-    text-align: center;
+    background: #eee;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
   }
 
   .playlist-container {
     background: #eee;
     width: 25%;
     padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    .playlist-toolbar {
+      text-align: center;
+
+      button {
+        margin: 0 5px;
+      }
+    }
 
     ol {
       list-style: none;
@@ -52,11 +78,6 @@ body {
     }
 
     button {
-      border: none;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      margin: 20px 5px;
-      cursor: pointer;
 
       &.active {
         color: #fff;
