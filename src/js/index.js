@@ -14,16 +14,16 @@ const playlist = [
     type:     "video/mp4"
   },
   {
-    title:    "Zozole - kawał",
-    url:      "/vids/sample_video.mp4",
+    title:    "Zozole - kawał (webm)",
+    url:      "/vids/small.webm",
     duration: "0:05",
-    type:     "video/mp4"
+    type:     "video/webm"
   },
   {
-    title:    "Happy Socks - otwarcie",
-    url:      "/vids/sample_video.mp4",
+    title:    "Happy Socks - otwarcie (ogg)",
+    url:      "/vids/small.ogv",
     duration: "0:05",
-    type:     "video/mp4"
+    type:     "video/ogg"
   }
 ]
 
@@ -36,7 +36,7 @@ let vplayer = new VideoPlayer({
   playerContainer:    "vplayer",
   playlistContainer:  "playlist",
   playlistData:       {
-    type: "json",
-    data: "http://localhost:9001/json/playlist.json"
+    type: "obj",
+    data: playlist
   }
 });

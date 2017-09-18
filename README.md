@@ -35,7 +35,7 @@ Player includes basic support for playlist, which should be an array of objects 
 * __title__ - title of the movie clip
 * __url__ - movie file location (currently remote resources are not supported)
 * __duration__ - movie clip duration
-* __type__ - format of the video file (currently only mp4 is supported)
+* __type__ - file format: `video/mp4`, `video/webm`, `video/ogg`
 
 A sample playlist element:
 ```javascript
