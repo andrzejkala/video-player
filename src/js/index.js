@@ -31,4 +31,8 @@ const playlist = [
 import VideoPlayer from "./vplayer";
 
 // Create the player
-let vplayer = new VideoPlayer("vplayer", playlist);
+let vplayer = new VideoPlayer({
+  playerContainer:    "vplayer",
+  playlistContainer:  "playlist",
+  playlistData:       playlist
+});
