@@ -5,6 +5,7 @@ var gulp        = require("gulp"),
     connect     = require("gulp-connect"),
     source      = require("vinyl-source-stream")
     sass        = require("gulp-sass")
+    minifyCSS   = require('gulp-minify-css')
     ;
 
 //Copy static html files
@@ -38,6 +39,7 @@ gulp.task("js", function(){
 gulp.task("css", function() {
   gulp.src("./src/scss/*.scss")
       .pipe(sass().on("error", sass.logError))
+      .pipe(minifyCSS())
       .pipe(gulp.dest("./dist/css"));
 });
 
