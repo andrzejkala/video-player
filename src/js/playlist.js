@@ -1,4 +1,4 @@
-export default class playlistPanel {
+export default class PlaylistPanel {
   constructor (config) {
     // Set playlist basic data
     this.playlist   = config.playlistData;

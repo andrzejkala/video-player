@@ -4,8 +4,10 @@ var gulp        = require("gulp"),
     browserify  = require("browserify"),
     connect     = require("gulp-connect"),
     source      = require("vinyl-source-stream")
+    buffer      = require("vinyl-buffer")
     sass        = require("gulp-sass")
-    minifyCSS   = require('gulp-minify-css')
+    minifyCSS   = require("gulp-minify-css")
+    minifyJS    = require("gulp-uglify")
     ;
 
 //Copy static html files
@@ -25,22 +27,23 @@ gulp.task("copyVideos", function(){
 gulp.task("js", function(){
   return browserify({
       entries: ["./src/js/index.js"]
-  })
-  .transform(babelify.configure({
+    })
+    .transform(babelify.configure({
       presets : ["es2015"]
-  }))
-  .bundle()
-  .pipe(source("bundle.js"))
-  .pipe(gulp.dest("./dist/js"))
-  ;
+    }))
+    .bundle()
+    .pipe(source("bundle.js"))
+    .pipe(buffer())
+    .pipe(minifyJS())
+    .pipe(gulp.dest("./dist/js"));
 });
 
 // Convert SCSS files to plain css
 gulp.task("css", function() {
   gulp.src("./src/scss/*.scss")
-      .pipe(sass().on("error", sass.logError))
-      .pipe(minifyCSS())
-      .pipe(gulp.dest("./dist/css"));
+    .pipe(sass().on("error", sass.logError))
+    .pipe(minifyCSS())
+    .pipe(gulp.dest("./dist/css"));
 });
 
 
@@ -60,9 +63,9 @@ gulp.task("default", function() {
 //listening to 9001 port. Home page = http://localhost:9001
 gulp.task("startServer", function(){
   connect.server({
-      root : "./dist",
-      livereload : true,
-      port : 9001
+    root : "./dist",
+    livereload : true,
+    port : 9001
   });
 });
 

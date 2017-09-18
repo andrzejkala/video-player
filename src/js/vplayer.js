@@ -1,4 +1,4 @@
-import playlistPanel from "./playlist";
+import PlaylistPanel from "./playlist";
 
 export default class videoPlayer {
   constructor (config) {
@@ -11,7 +11,7 @@ export default class videoPlayer {
 
     // Check if there is a playlist data at all
     if (config.playlistData) {
-      this.playlistPanel = new playlistPanel({
+      this.playlistPanel = new PlaylistPanel({
         playlistContainer:  config.playlistContainer,
         playlistData:       config.playlistData,
         player:             this
