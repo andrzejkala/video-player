@@ -1,0 +1,26 @@
+[
+  {
+    "title":    "Reklama Play",
+    "url":      "http://bitrebel.com/dev/vids/sample_video.mp4",
+    "duration": "0:05",
+    "type":     "video/mp4"
+  },
+  {
+    "title":    "Reklama Hellena",
+    "url":      "http://bitrebel.com/dev/vids/sample_video.mp4",
+    "duration": "0:05",
+    "type":     "video/mp4"
+  },
+  {
+    "title":    "Zozole - kawał",
+    "url":      "http://bitrebel.com/dev/vids/sample_video.mp4",
+    "duration": "0:05",
+    "type":     "video/mp4"
+  },
+  {
+    "title":    "Happy Socks - otwarcie",
+    "url":      "http://bitrebel.com/dev/vids/sample_video.mp4",
+    "duration": "0:05",
+    "type":     "video/mp4"
+  }
+]

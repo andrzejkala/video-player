@@ -35,5 +35,8 @@ let vplayer = new VideoPlayer({
   playerPoster:       "img/poster.jpg",
   playerContainer:    "vplayer",
   playlistContainer:  "playlist",
-  playlistData:       playlist
+  playlistData:       {
+    type: "json",
+    data: "http://localhost:9001/json/playlist.json"
+  }
 });

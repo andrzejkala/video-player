@@ -10,14 +10,19 @@ To be able to run smoothly, the player requires some basic configuration.
 * __playerPoster__ - poster file location (image that's displayed when player is stopped)
 * __playerContainer__ - `id` of the DOM Element that the player should be injected into
 * __playlistContainer__ - `id` of the DOM Element that the playlist component should be injected into
-* __playlist__ - the playlist
+* __playlistData__ - playlist configuration object that includes two fields:
+  * __type__ - type of configuration provided `obj` for object, `url` for JSON file to load via XHR
+  * __data__ - either an object with all the data as specified below or an `url` to JSON file
 
 ```javascript
 let vplayer = new VideoPlayer({
   playerPoster:       "img/poster.jpg",
   playerContainer:    "vplayer",
   playlistContainer:  "playlist",
-  playlistData:       playlist
+  playlistData:       {
+    type: _list_type_,
+    data: _playlist_data_source
+  }
 });
 ```
 

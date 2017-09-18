@@ -1,7 +1,16 @@
 export default class PlaylistPanel {
   constructor (config) {
     // Set playlist basic data
-    this.playlist   = config.playlistData;
+    switch (config.playlistData.type) {
+    case "obj":
+      this.playlist   = config.playlistData.data
+      break;
+    case "json":
+      this.playlist   = this.loadPlaylistFromJSON(config.playlistData.data);
+      break;
+    default:
+      console.error("You need to provide a playlist source");
+    }
 
     // Set the container
     this.container  = config.playlistContainer;
@@ -13,13 +22,18 @@ export default class PlaylistPanel {
     this.repeatPlaylist   = false;
     this.shufflePlaylist  = false;
 
-    // Create the playlist information panel
-    this.createPlaylistPanel();
-
+    // Hook up the player
     this.player           = config.player;
+
+    // Create the playlist information panel
+    if (this.playlist) {
+      this.createPlaylistPanel();
+    }
+
 
   }
 
+  // Getters / setters
   getPlaylist() {
     return this.playlist;
   }
@@ -47,6 +61,21 @@ export default class PlaylistPanel {
   setLoadedFromPlaylist(loadedFromPlaylist) {
     this.loadedFromPlaylist = loadedFromPlaylist;
   }
+
+
+  // http://localhost:9001/json/playlist.json
+  // To make things simple - $.ajax via jQuery
+  loadPlaylistFromJSON(url) {
+    console.log("Loading playlist from JSON", url);
+    $.ajax(url)
+      .done( (response) => {
+        this.playlist = response;
+        this.createPlaylistPanel();
+        console.log("HERE WE GO!")
+        this.player.loadVideo(this.player.currentVideo, false);
+      });
+  }
+
 
   // Playlist panel
   createPlaylistPanel() {

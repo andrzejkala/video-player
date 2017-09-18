@@ -33,7 +33,11 @@ gulp.task("staticFiles", function() {
   var imgs = gulp.src("./src/img/*.*")
       .pipe(gulp.dest("./dist/img"));
 
-  return merge(videoFiles, htmlFiles, imgs, css, fonts);
+  // JSON copy (just for the test purposes)
+  var json = gulp.src("./src/js/playlist.json")
+      .pipe(gulp.dest("./dist/json"))
+
+  return merge(videoFiles, htmlFiles, json, imgs, css, fonts);
 });
 
 //Convert ES6 in all js files in src/js folder and copy to
