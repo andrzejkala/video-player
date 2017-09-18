@@ -27,7 +27,7 @@ gulp.task("staticFiles", function() {
 
   // Fonts
   var fonts = gulp.src("./src/scss/fonts/*.*")
-      .pipe(gulp.dest("./dist/css/fonts"));
+      .pipe(gulp.dest("./dist/fonts"));
 
   // Images
   var imgs = gulp.src("./src/img/*.*")
