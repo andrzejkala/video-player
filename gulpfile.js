@@ -27,9 +27,13 @@ gulp.task("staticFiles", function() {
 
   // Fonts
   var fonts = gulp.src("./src/scss/fonts/*.*")
-  .pipe(gulp.dest("./dist/css/fonts"));
+      .pipe(gulp.dest("./dist/css/fonts"));
 
-  return merge(videoFiles, htmlFiles, css, fonts);
+  // Images
+  var imgs = gulp.src("./src/img/*.*")
+      .pipe(gulp.dest("./dist/img"));
+
+  return merge(videoFiles, htmlFiles, imgs, css, fonts);
 });
 
 //Convert ES6 in all js files in src/js folder and copy to

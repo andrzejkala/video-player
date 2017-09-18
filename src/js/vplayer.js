@@ -6,8 +6,15 @@ export default class videoPlayer {
     // Create the video player basics
     this.container  = document.getElementById(config.playerContainer);
     this.player     = document.createElement("video");
+    this.player.poster = config.playerPoster;
     this.player.controls = false; // hide native player controls
     this.container.appendChild(this.player);
+
+    // Player state
+    this.playerState = document.createElement("div");
+    this.playerState.id = "player-state";
+    this.setPlayerState("Stopped");
+    this.container.appendChild(this.playerState);
 
     // Check if there is a playlist data at all
     if (config.playlistData) {
@@ -32,16 +39,21 @@ export default class videoPlayer {
 
   }
 
+  setPlayerState(state) {
+    this.playerState.innerHTML = state;
+  }
+
   bindVideoEvents() {
 
     // When playback has started
     this.player.addEventListener("playing", () => {
+      this.setPlayerState("Playing");
       this.playlistPanel.highlightPlaylistItem(this.currentVideo);
     });
 
     // When playback is paused
     this.player.addEventListener("pause", () => {
-      console.log("Video paused");
+      this.setPlayerState("Paused");
     });
 
     // When playback is complete
@@ -57,6 +69,9 @@ export default class videoPlayer {
             this.loadVideo(this.currentVideo, true);
           } else {
             this.currentVideo = 0;
+            if (!this.playlistPanel.getRepeatPlaylist()) {
+              this.setPlayerState("Stopped");
+            }
             this.loadVideo(this.currentVideo, this.playlistPanel.getRepeatPlaylist());
           }
         }
@@ -106,6 +121,7 @@ export default class videoPlayer {
           this.player.pause();
           this.currentVideo = 0;
           this.loadVideo(this.currentVideo, false);
+          this.setPlayerState("Stopped");
         });
 
         controlsLeft.appendChild(stopButton);

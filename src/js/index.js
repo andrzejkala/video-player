@@ -32,6 +32,7 @@ import VideoPlayer from "./vplayer";
 
 // Create the player
 let vplayer = new VideoPlayer({
+  playerPoster:       "img/poster.jpg",
   playerContainer:    "vplayer",
   playlistContainer:  "playlist",
   playlistData:       playlist
