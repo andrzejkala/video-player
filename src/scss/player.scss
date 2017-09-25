@@ -14,6 +14,31 @@ button {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.notifications-bar {
+  background: rgba(79, 159, 207, 1);
+  padding: 15px 25px;
+  color: #333;
+  text-align: center;
+  display: none;
+
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+
+  &:after {
+    background: rgba(79, 159, 207, 1);
+    content: "[X]";
+    display: block;
+    padding: 5px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+}
+
 .player-window {
   display: flex;
   padding: 20px;

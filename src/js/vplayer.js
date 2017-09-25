@@ -37,6 +37,32 @@ export default class videoPlayer {
     // Bind video events
     this.bindVideoEvents();
 
+    // Create notifications container
+    this.handleNotifications(false);
+
+  }
+
+  handleNotifications(msg) {
+
+    // Check if the notifications element is already present
+    // If not, create one
+    if (!this.notificationsBar) {
+      this.notificationsBar = document.createElement("div");
+      this.notificationsBar.className = "notifications-bar";
+
+      this.notificationsBar.addEventListener("click", function(e) {
+        e.preventDefault();
+        $(this).hide(); // jQuery to simplify
+      });
+
+      this.container.appendChild( this.notificationsBar );
+    }
+
+
+    if (msg) {
+      this.notificationsBar.innerText = msg;
+      $(this.notificationsBar).show(); // jQuery to simplify
+    }
   }
 
   setPlayerState(state) {
@@ -197,22 +223,55 @@ export default class videoPlayer {
           this.player.appendChild(this.source);
         }
 
-        this.source.src  = this.playlistPanel.playlist[index].url;
-        this.source.type = this.playlistPanel.playlist[index].type;
+        var videoFormatSupported = this.checkVideoFormatSupport(this.playlistPanel.playlist[index].type);
 
-        this.player.load();
+        if (videoFormatSupported) {
+          this.source.src  = this.playlistPanel.playlist[index].url;
+          this.source.type = this.playlistPanel.playlist[index].type;
 
-        if (this.playlistPanel.processedItems) {
-          this.playlistPanel.highlightPlaylistItem(index);
+          this.player.load();
+
+          if (this.playlistPanel.processedItems) {
+            this.playlistPanel.highlightPlaylistItem(index);
+          }
+
+          if (play) {
+            this.player.play();
+          }
+        } else {
+          this.handleNotifications("[!] This type of video file is not supported by this browser");
         }
 
-        if (play) {
-          this.player.play();
-        }
+
 
       } else {
         console.error("Video doesn't exist");
       }
     }
+  }
+
+  // Check if a browser supports given video format
+  checkVideoFormatSupport(format) {
+    var isSupported;
+    if ( this.player.canPlayType ) {
+      // Check for MPEG-4 support
+      switch (format) {
+      case "video/mp4":
+        isSupported = ( this.player.canPlayType( 'video/mp4; codecs="avc1.42E01E"' )
+          || this.player.canPlayType( 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"' )
+          || this.player.canPlayType( 'video/mp4; codecs="mp4v.20.8"' ) )
+        break;
+      case "video/webm":
+        isSupported = this.player.canPlayType( 'video/webm; codecs="vp8, vorbis"' );
+        break;
+      case "video/ogg":
+        isSupported = this.player.canPlayType( 'video/ogg; codecs="theora"' );
+        break;
+      default:
+        isSupported = false;
+      }
+    }
+
+    return isSupported;
   }
 }
