@@ -55,5 +55,6 @@ To run it locally:
 1. Clone the repository
 2. run `npm install` or `yarn install` to install all the packages
 3. Use `gulp` to build the project.
+4. Open browser and load up `http://localhost:9001`
 
 For now the build process assumes that **video files are located inside `/vids/` folder in the root**.
